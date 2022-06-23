@@ -271,7 +271,20 @@ def rrefprocess(mat):
             st.latex(i)
 
 
+about_info = r'''
+## Dr. Xinli Xiao
+Arkansas Tech University
+
+xxiao@atu.edu
+
+rref version: v1.0    
+'''
+menu_items = {'About': about_info}
+st.set_page_config(menu_items=menu_items)
+
+
 st.title("Reduced row echelon form of a matrix")
+st.markdown("provided by Dr. Xinli Xiao, Arkansas Tech University")
 choice = st.selectbox("Please choose a way to get a matrix:",
                       options=["Manually input a matrix",
                                "Randomly generate a matrix"])
