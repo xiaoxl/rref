@@ -300,5 +300,7 @@ elif choice == "Randomly generate a matrix":
     nRow = st.number_input('Number of rows', min_value=1, value=3, step=1)
     nCol = st.number_input('Number of columns', min_value=1, value=3, step=1)
     mat = sp.randMatrix(nRow, nCol, min=-9, max=9)
+    if st.button("Generate a new matrix"):
+        mat = sp.randMatrix(nRow, nCol, min=-9, max=9)
 
 rrefprocess(mat)
