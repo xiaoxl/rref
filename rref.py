@@ -278,29 +278,45 @@ Arkansas Tech University
 xxiao@atu.edu
 
 rref version: v1.0    
+pivot version: v0.1
 '''
 menu_items = {'About': about_info}
 st.set_page_config(menu_items=menu_items)
 
 
-st.title("Reduced row echelon form of a matrix")
-st.markdown("provided by Dr. Xinli Xiao, Arkansas Tech University")
-choice = st.selectbox("Please choose a way to get a matrix:",
-                      options=["Manually input a matrix",
-                               "Randomly generate a matrix"])
+def rrefpage():
+    st.title("Reduced row echelon form of a matrix")
+    st.markdown("provided by Dr. Xinli Xiao, Arkansas Tech University")
+    choice = st.selectbox("Please choose a way to get a matrix:",
+                        options=["Manually input a matrix",
+                                "Randomly generate a matrix"])
 
-if choice == "Manually input a matrix":
-    st.markdown("# Matrix inputer")
-    st.markdown("Columns are separated by spaces or `,`. "
-                "Rows are separated by new lines or `;`. ")
-    inputmat = st.text_area("Please input your matrix.",
-                            value="1 2\n3 4")
-    mat = pharseString(inputmat)
-elif choice == "Randomly generate a matrix":
-    nRow = st.number_input('Number of rows', min_value=1, value=3, step=1)
-    nCol = st.number_input('Number of columns', min_value=1, value=3, step=1)
-    mat = sp.randMatrix(nRow, nCol, min=-9, max=9)
-    if st.button("Generate a new matrix"):
+    if choice == "Manually input a matrix":
+        st.markdown("# Matrix inputer")
+        st.markdown("Columns are separated by spaces or `,`. "
+                    "Rows are separated by new lines or `;`. ")
+        inputmat = st.text_area("Please input your matrix.",
+                                value="1 2\n3 4")
+        mat = pharseString(inputmat)
+    elif choice == "Randomly generate a matrix":
+        nRow = st.number_input('Number of rows', min_value=1, value=3, step=1)
+        nCol = st.number_input('Number of columns', min_value=1, value=3, step=1)
         mat = sp.randMatrix(nRow, nCol, min=-9, max=9)
+        if st.button("Generate a new matrix"):
+            mat = sp.randMatrix(nRow, nCol, min=-9, max=9)
 
-rrefprocess(mat)
+    rrefprocess(mat)
+
+
+def pivotpage():
+    st.markdown("pivot")
+
+
+page_names_to_funcs = {
+    'Reduced row echelon form': rrefpage,
+    'Pivot positions': pivotpage,
+}
+
+
+selected_page = st.sidebar.selectbox("Select a page", page_names_to_funcs.keys())
+page_names_to_funcs[selected_page]()
